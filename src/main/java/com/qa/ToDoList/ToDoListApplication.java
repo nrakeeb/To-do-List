@@ -1,4 +1,4 @@
-package com.qa.baespring;
+package com.qa.ToDoList;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
