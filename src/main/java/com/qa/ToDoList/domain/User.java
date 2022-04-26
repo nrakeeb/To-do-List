@@ -50,7 +50,38 @@ public class User {
 			this.Comments = Comments;
 			this.Price = Price;
 		}
-		
+
+		public long getId() {
+			return id;
+		}
+
+		public void setId(long id) {
+			this.id = id;
+		}
+
+		public String getTitle() {
+			return Title;
+		}
+
+		public void setTitle(String title) {
+			Title = title;
+		}
+
+		public String getComments() {
+			return Comments;
+		}
+
+		public void setComments(String comments) {
+			Comments = comments;
+		}
+
+		public String getPrice() {
+			return Price;
+		}
+
+		public void setPrice(String price) {
+			Price = price;
+		}
 		
 		
 		
