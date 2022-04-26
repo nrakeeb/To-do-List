@@ -15,13 +15,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.ToDoList.domain.User;
-
+import com.qa.ToDoList.service.UserService;
 
 
 @RestController
 @CrossOrigin
 @RequestMapping("/Notes")
 public class UserController {
+	
+	private UserService service;
+
+	public UserController(UserService service) {
+		super();
+		this.service = service;
+	}
 
 	//GET
 	@GetMapping("/getAll") //localhost:8080/getAll
