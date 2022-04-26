@@ -82,10 +82,30 @@ public class User {
 		public void setPrice(String price) {
 			Price = price;
 		}
+
 		
-		
-		
-		
+		@Override
+		public String toString() {
+			return "User [id=" + id + ", Title=" + Title + ", Comments=" + Comments + ", Price=" + Price + "]";
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(Comments, Price, Title, id);
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			User other = (User) obj;
+			return Objects.equals(Comments, other.Comments) && Objects.equals(Price, other.Price)
+					&& Objects.equals(Title, other.Title) && id == other.id;
+		}
 		
 		
 	
