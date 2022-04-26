@@ -17,4 +17,12 @@ public class User {
 	private long id;
 	
 	
+	// Creates a column called "last_name"
+		@Column(nullable = false)
+		private String Title;
+		
+		// Creates a column called "last_name"
+		@Column(nullable = false)
+		private String Comments;
+	
 }
