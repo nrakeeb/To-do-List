@@ -44,7 +44,10 @@ public class UserController {
 	
 	//PUT
 	
-	
+		@PutMapping("/update/{id}") //localhost:8080/update
+		public ResponseEntity <User> update(@PathVariable long id, @RequestBody User user) {
+			return new ResponseEntity<User>(service.update(id, user),HttpStatus.CREATED);
+		}
 	
 	
 	//DELETE
