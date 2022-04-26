@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.qa.ToDoList.domain.User;
 import com.qa.ToDoList.repo.UserRepo;
 
-import exceptions.UserNotFoundException;
+
 
 
 
@@ -39,8 +39,11 @@ public class UserService {
 			
 		}
 
-
-
+	// create user
+	
+		public User create(User user) {
+			return repo.saveAndFlush(user);
+		}
 
 }
 
