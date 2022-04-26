@@ -29,6 +29,12 @@ public class UserController {
 		return new ResponseEntity<List<User>>(service.getAll(),HttpStatus.OK);
 	}
 	
+	//GET by ID (get one User)
+		@GetMapping("/getById/{id}")//localhost:8080/getById/id
+		public ResponseEntity<User> getById (@PathVariable long id) {
+			return new ResponseEntity<User>(service.getById(id),HttpStatus.OK);
+		}
+	
 	
 	//POST
 	
