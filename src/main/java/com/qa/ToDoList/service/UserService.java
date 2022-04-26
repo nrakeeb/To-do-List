@@ -10,12 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.qa.ToDoList.domain.User;
 import com.qa.ToDoList.repo.UserRepo;
 
-import exceptions.UserCannotBeUpdated;
-
-
-
-
-
 
 @Service
 public class UserService {
@@ -55,6 +49,12 @@ public class UserService {
 			existing.setComments(user.getComments()); // Change Existing user's comments to new user's comments.
 			existing.setPrice(user.getPrice()); // Change Existing user's price to new user's price.
 			return repo.saveAndFlush(existing);
+		}
+		
+		// delete user
+		public boolean delete(long id) {
+			repo.deleteById(id);
+			return !repo.existsById(id);
 		}
 
 }
