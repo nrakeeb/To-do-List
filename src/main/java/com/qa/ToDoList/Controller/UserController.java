@@ -37,8 +37,10 @@ public class UserController {
 	
 	
 	//POST
-	
-	
+		@PostMapping("/create") //localhost:8080/create
+		public ResponseEntity <User> create(@RequestBody User user ) {
+			return new ResponseEntity<User>(service.create(user), HttpStatus.CREATED);
+		}
 	
 	//PUT
 	
