@@ -17,12 +17,45 @@ public class User {
 	private long id;
 	
 	
-	// Creates a column called "last_name"
+	// Creates a column called "Title"
 		@Column(nullable = false)
 		private String Title;
 		
-		// Creates a column called "last_name"
+		// Creates a column called "Comments"
 		@Column(nullable = false)
 		private String Comments;
+		
+		// Creates a column called "Price"
+		@Column(nullable = false)
+		private String Price;
+		
+		
+		//  Constructors 
+		//Default Constructor
+		public User() {}
+		
+		// used for creating/ inserting without ID
+		public User(String Title, String Comments, String Price) {
+			super();
+			this.Title = Title;
+			this.Comments = Comments;
+			this.Price = Price;
+		}
+		
+		//Used for reading/selecting (and testing)
+		public User (long id, String Title, String Comments, String Price) {
+			super();
+			this.id = id;
+			this.Title = Title;
+			this.Comments = Comments;
+			this.Price = Price;
+		}
+		
+		
+		
+		
+		
+		
+		
 	
 }
