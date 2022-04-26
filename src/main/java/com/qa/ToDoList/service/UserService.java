@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.qa.ToDoList.domain.User;
 import com.qa.ToDoList.repo.UserRepo;
 
+import exceptions.UserCannotBeUpdated;
+
 
 
 
@@ -43,6 +45,16 @@ public class UserService {
 	
 		public User create(User user) {
 			return repo.saveAndFlush(user);
+		}
+		
+		
+		// update a entries
+		public User update(long id, User user) {
+			User existing = repo.findById(id).get(); // get the Existing User
+			existing.setTitle(user.getTitle()); // Change Existing user's title to new user's title.
+			existing.setComments(user.getComments()); // Change Existing user's comments to new user's comments.
+			existing.setPrice(user.getPrice()); // Change Existing user's price to new user's price.
+			return repo.saveAndFlush(existing);
 		}
 
 }
