@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.qa.ToDoList.domain.User;
 import com.qa.ToDoList.repo.UserRepo;
 
+import exceptions.UserNotFoundException;
+
+
+
 
 @Service
 public class UserService {
@@ -27,5 +31,16 @@ public class UserService {
 	public List<User> getAll() {
 		return repo.findAll();
 	}
+	
+	// get by ID
+	
+	public User getById (long id) {
+		return repo.findById(id).get(); // .get() will either get the User (if exists) Or Throw NoSuchElemtException
+			
+		}
+
+
+
 
 }
+
