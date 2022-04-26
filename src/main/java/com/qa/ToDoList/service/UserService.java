@@ -8,9 +8,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.qa.ToDoList.domain.User;
+import com.qa.ToDoList.repo.UserRepo;
 
 
-
+@Service
 public class UserService {
+	
+	private UserRepo repo; 
+
+	// generate a constructor using all fields
+	public UserService(UserRepo repo) {
+		super();
+		this.repo = repo;
+	}
+	
+	// get by all
+	
+	public List<User> getAll() {
+		return repo.findAll();
+	}
 
 }
