@@ -34,6 +34,8 @@ public class UserControllerUnitTest {
 		private UserService service;
 		
 		@Test
+		
+		// testing response of create 
 		void createTest() throws Exception {
 			User entry = new User("Food List", "Pasta\\nBread\\nApples\\nChicken\\nMilk ", "£40");
 			String entryAsJSON = this.mapper.writeValueAsString(entry);
@@ -49,6 +51,7 @@ public class UserControllerUnitTest {
 		
 		
 		@Test
+		// testing response of get all
 		public void getAllTest() throws Exception {
 			User entry = new User("Food List", "Pasta\\nBread\\nApples\\nChicken\\nMilk ", "£40");
 			List<User> output = new ArrayList<>();
@@ -62,5 +65,22 @@ public class UserControllerUnitTest {
 				.andExpect(status().isOk())
 				.andExpect(content().json(outputAsJSON));
 		}
+		
+		
+		// testing response of get by ID
+		@Test
+		public void getByIdTest() throws Exception {
+			User entry = new User("Food List", "Pasta\\nBread\\nApples\\nChicken\\nMilk ", "£40");
+			String entryAsJSON = this.mapper.writeValueAsString(entry);
+			
+			Mockito.when(this.service.getById(1L)).thenReturn(entry);
+			
+			mvc.perform(get("/Notes/getById/1")
+				.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content().json(entryAsJSON));
+		}
+		
+		
 	
 }
