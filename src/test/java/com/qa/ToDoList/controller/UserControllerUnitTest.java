@@ -81,6 +81,22 @@ public class UserControllerUnitTest {
 				.andExpect(content().json(entryAsJSON));
 		}
 		
+		// testing response to update entry
+		
+		@Test
+		public void updateTest() throws Exception {
+			User outputUpdate = new User(1L,"Food List", "Pasta\\nBread\\nApples\\nChicken\\nMilk ", "£40");
+			String outputAsJSON = mapper.writeValueAsString(outputUpdate);
+			
+			User result = new User(1L,"Food List", "Rice\\nWater\\nBanana\\nChicken\\nMilk ", "£50");
+			String resultAsJSON = mapper.writeValueAsString(result);
+			
+			Mockito.when(this.service.update(1L, outputUpdate)).thenReturn(result);
+			
+			mvc.perform(put("/Notes/update/1").contentType(MediaType.APPLICATION_JSON).content(outputAsJSON))
+			.andExpect(status().isCreated()).andExpect(content().json(resultAsJSON));
+				
+		}
 		
 	
 }
