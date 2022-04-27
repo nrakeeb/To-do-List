@@ -46,5 +46,21 @@ public class UserControllerUnitTest {
 				.andExpect(status().isCreated())
 				.andExpect(content().json(entryAsJSON));
 		}
+		
+		
+		@Test
+		public void getAllTest() throws Exception {
+			User entry = new User("Food List", "Pasta\\nBread\\nApples\\nChicken\\nMilk ", "£40");
+			List<User> output = new ArrayList<>();
+			output.add(entry);
+			String outputAsJSON = this.mapper.writeValueAsString(output);
+			
+			Mockito.when(this.service.getAll()).thenReturn(output);
+			
+			mvc.perform(get("/Notes/getAll")
+				.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content().json(outputAsJSON));
+		}
 	
 }
