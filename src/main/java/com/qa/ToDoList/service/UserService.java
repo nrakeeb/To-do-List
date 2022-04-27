@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.qa.ToDoList.domain.User;
 import com.qa.ToDoList.repo.UserRepo;
 
+import exceptions.NoteCannotBeDeleted;
 import exceptions.NoteCannotBeUpdated;
 import exceptions.NoteNotFoundException;
 
@@ -40,14 +41,14 @@ public class UserService {
 			
 		}
 
-	// create user
+	// create entry
 	
 		public User create(User user) {
 			return repo.saveAndFlush(user);
 		}
 		
 		
-		// update a entries
+		// update a entry
 		public User update(long id, User user) {
 			User existing = repo.findById(id).orElseThrow(NoteCannotBeUpdated::new); // get the Existing User
 			existing.setTitle(user.getTitle()); // Change Existing user's title to new user's title.
@@ -56,10 +57,12 @@ public class UserService {
 			return repo.saveAndFlush(existing);
 		}
 		
-		// delete user
+		// delete entry
 		public boolean delete(long id) {
-			repo.deleteById(id);
-			return !repo.existsById(id);
+			if(!repo.existsById(id)){
+				  throw new NoteCannotBeDeleted();
+				}
+			return repo.existsById(id);
 		}
 
 }
