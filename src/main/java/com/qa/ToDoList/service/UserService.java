@@ -11,6 +11,8 @@ import com.qa.ToDoList.domain.User;
 import com.qa.ToDoList.repo.UserRepo;
 
 import exceptions.NoteCannotBeUpdated;
+import exceptions.NoteNotFoundException;
+
 
 
 
@@ -34,7 +36,7 @@ public class UserService {
 	// get by ID
 	
 	public User getById (long id) {
-		return repo.findById(id).get(); // .get() will either get the User (if exists) Or Throw NoSuchElemtException
+		return repo.findById(id).orElseThrow(NoteNotFoundException::new); // .get() will either get the User (if exists) Or Throw NoSuchElemtException
 			
 		}
 
