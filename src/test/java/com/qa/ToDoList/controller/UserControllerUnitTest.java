@@ -98,5 +98,25 @@ public class UserControllerUnitTest {
 				
 		}
 		
-	
+		// testing response to delete
+		
+		@Test
+		public void deleteTest() throws Exception {
+			Mockito.when(this.service.delete(1L)).thenReturn(true);
+		
+			mvc.perform(delete("/user/delete/1")
+				.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isNoContent());
+		}
+		
+		// testing response if id does not exist when deleting entry
+		
+		@Test
+		public void deleteFailTest() throws Exception {
+			Mockito.when(this.service.delete(2L)).thenReturn(false);
+		
+			mvc.perform(delete("/Notes/delete/2")
+				.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isInternalServerError());
+		}
 }
