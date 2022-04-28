@@ -58,12 +58,18 @@ public class UserService {
 		}
 		
 		// delete entry
-		public boolean delete(long id) {
-			if(!repo.existsById(id)){
-				  throw new NoteCannotBeDeleted();
-				}
-			return repo.existsById(id);
-		}
+//		public boolean delete(long id) {
+//			if(!repo.existsById(id)){
+//				  throw new NoteCannotBeDeleted();
+//				}
+//			repo.deleteById(id);
+//		}
+		public boolean delete(long id){
+	        User entry = repo.findById(id).orElseThrow(NoteCannotBeDeleted::new);
+	        repo.delete(entry);
+
+	        return !repo.existsById(id);
+	    }
 
 }
 
