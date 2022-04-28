@@ -51,9 +51,9 @@ public class UserService {
 		// update a entry
 		public User update(long id, User user) {
 			User existing = repo.findById(id).orElseThrow(NoteCannotBeUpdated::new); // get the Existing User
-			existing.setTitle(user.getTitle()); // Change Existing user's title to new user's title.
-			existing.setComments(user.getComments()); // Change Existing user's comments to new user's comments.
-			existing.setPrice(user.getPrice()); // Change Existing user's price to new user's price.
+			existing.setComments(user.getComments()); // Change Existing user's title to new user's title.
+//			existing.setComments(user.getComments()); // Change Existing user's comments to new user's comments.
+//			existing.setPrice(user.getPrice()); // Change Existing user's price to new user's price.
 			return repo.saveAndFlush(existing);
 		}
 		
