@@ -59,9 +59,9 @@ public class UserController {
 	
 	//DELETE
 		@DeleteMapping("/delete/{id}") //localhost:8080/delete/id 
-		public ResponseEntity<?> delete(@PathVariable long id) {
-			return (service.delete(id))? new ResponseEntity<Boolean> (HttpStatus.NO_CONTENT):
-				new ResponseEntity<Boolean>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		public ResponseEntity<?> delete(@PathVariable long id){
+	        return (service.delete(id))? new ResponseEntity<>(HttpStatus.NO_CONTENT) :
+	                new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);//TODO:custom exception
+	    }
 	
 }

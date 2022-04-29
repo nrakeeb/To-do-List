@@ -33,62 +33,57 @@ public class UserControllerUnitTest {
 		@MockBean
 		private UserService service;
 		
-		@Test
-		
-		// testing response of create 
-		void createTest() throws Exception {
-			User entry = new User("Make a doctors appointment");
-			String entryAsJSON = this.mapper.writeValueAsString(entry);
+		@Test //marks a method as a test
+		public void createTest() throws Exception {
+			User entry = new User("I need a holiday");
+			String entryAsJSON = mapper.writeValueAsString(entry);
+
+			User result = new User(2L, "I need a holiday");
+			String resultAsJSON = mapper.writeValueAsString(result);
 			
-			Mockito.when(this.service.create(entry)).thenReturn(entry);
-			
-			mvc.perform(post("/Notes/create")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(entryAsJSON))
-				.andExpect(status().isCreated())
-				.andExpect(content().json(entryAsJSON));
-		}
-		
-		
+			Mockito.when(this.service.create(entry)).thenReturn(result);
+
+
+			mvc.perform(post("/Notes/create").contentType(MediaType.APPLICATION_JSON).content(entryAsJSON))
+					.andExpect(status().isCreated()).andExpect(content().json(resultAsJSON));
+
+		}	
+
 		@Test
-		// testing response of get all
 		public void getAllTest() throws Exception {
-			User entry = new User("Make a doctors appointment");
+			User user = new User(1L, "Make a doctors appointment");
 			List<User> output = new ArrayList<>();
-			output.add(entry);
-			String outputAsJSON = this.mapper.writeValueAsString(output);
+			output.add(user);
+			String outputAsJSON = mapper.writeValueAsString(output);
 			
 			Mockito.when(this.service.getAll()).thenReturn(output);
+
+
+			mvc.perform(get("/Notes/getAll").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+					.andExpect(content().json(outputAsJSON));
 			
-			mvc.perform(get("/Notes/getAll")
-				.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk())
-				.andExpect(content().json(outputAsJSON));
 		}
-		
-		
-		// testing response of get by ID
+		//
 		@Test
-		public void getByIdTest() throws Exception {
-			User entry = new User("Make a doctors appointment");
-			String entryAsJSON = this.mapper.writeValueAsString(entry);
+		public void getByIdTest () throws Exception {
+			User outputID = new User(1L, "Make a doctors appointment");
+			String outputIDAsJSON = mapper.writeValueAsString(outputID);
 			
-			Mockito.when(this.service.getById(1L)).thenReturn(entry);
+			Mockito.when(this.service.getById(1L)).thenReturn(outputID);
 			
 			mvc.perform(get("/Notes/getById/1")
-				.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk())
-				.andExpect(content().json(entryAsJSON));
+			.contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andExpect(content().json(outputIDAsJSON));
+					
 		}
-		
-		// testing response to update entry
-		
+
 		@Test
 		public void updateTest() throws Exception {
-			User outputUpdate = new User(1L,"Make a doctors appointment");
+			User outputUpdate = new User("I need a holiday");
 			String outputAsJSON = mapper.writeValueAsString(outputUpdate);
 			
-			User result = new User(1L,"Make a doctors appointment for monday morining");
+			User result = new User(1L, "I need a holiday");
 			String resultAsJSON = mapper.writeValueAsString(result);
 			
 			Mockito.when(this.service.update(1L, outputUpdate)).thenReturn(result);
@@ -97,9 +92,7 @@ public class UserControllerUnitTest {
 			.andExpect(status().isCreated()).andExpect(content().json(resultAsJSON));
 				
 		}
-		
-		// testing response to delete
-		
+
 		@Test
 		public void deleteTest() throws Exception {
 			Mockito.when(this.service.delete(1L)).thenReturn(true);
@@ -109,8 +102,6 @@ public class UserControllerUnitTest {
 				.andExpect(status().isNoContent());
 		}
 		
-		// testing response if id does not exist when deleting entry
-		
 		@Test
 		public void deleteFailTest() throws Exception {
 			Mockito.when(this.service.delete(2L)).thenReturn(false);
@@ -119,4 +110,6 @@ public class UserControllerUnitTest {
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isInternalServerError());
 		}
+		
+		
 }
