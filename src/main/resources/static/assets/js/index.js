@@ -30,6 +30,15 @@ function createTodo() {
     })
 }
 
+// UPDATE TODO
+function updateTodo(id) {
+    let updatedText = document.getElementById("input_" + id).value;
+    axios.put(`${ADDR}/Notes/update/${id}`, {
+        comments: updatedText
+    }).catch(err => alert(err))
+}
+
+
 
 // TODO DOM ELEMENTS AND ATTRIBUTES
 function makeTodo(todoItem) {
