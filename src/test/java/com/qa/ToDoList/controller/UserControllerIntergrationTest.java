@@ -24,12 +24,9 @@ import com.qa.ToDoList.domain.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-
-
 @SpringBootTest
 @AutoConfigureMockMvc
-@Sql(scripts = { "classpath:testschema.sql",
-		"classpath:testdata.sql" }, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
+@Sql(scripts = {"classpath:testschema.sql" , "classpath:testdata.sql"},  executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 @ActiveProfiles("test")
 
 public class UserControllerIntergrationTest {
@@ -41,85 +38,64 @@ public class UserControllerIntergrationTest {
 	@Autowired
 	private ObjectMapper mapper;
 		
-		
-@Test
-		
-		// testing response of create 
-		void createTest() throws Exception {
-			User entry = new User("Make a doctors appointment");
-			String entryAsJSON = this.mapper.writeValueAsString(entry);
-			
-			
-			mvc.perform(post("/Notes/create")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(entryAsJSON))
-				.andExpect(status().isCreated())
-				.andExpect(content().json(entryAsJSON));
-		}
-		
-		
-		@Test
-		// testing response of get all
-		public void getAllTest() throws Exception {
-			User entry = new User("Make a doctors appointment");
-			List<User> output = new ArrayList<>();
-			output.add(entry);
-			String outputAsJSON = this.mapper.writeValueAsString(output);
-			
-			mvc.perform(get("/Notes/getAll")
-				.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk())
-				.andExpect(content().json(outputAsJSON));
-		}
-		
-		
-		// testing response of get by ID
-		@Test
-		public void getByIdTest() throws Exception {
-			User entry = new User("Make a doctors appointment");
-			String entryAsJSON = this.mapper.writeValueAsString(entry);
-			
-			
-			mvc.perform(get("/Notes/getById/1")
-				.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk())
-				.andExpect(content().json(entryAsJSON));
-		}
-		
-		// testing response to update entry
-		
-		@Test
-		public void updateTest() throws Exception {
-			User outputUpdate = new User(1L,"Make a doctors appointment");
-			String outputAsJSON = mapper.writeValueAsString(outputUpdate);
-			
-			User result = new User(1L,"Make a doctors appointment for monday morining");
-			String resultAsJSON = mapper.writeValueAsString(result);
-			
-			
-			mvc.perform(put("/Notes/update/1").contentType(MediaType.APPLICATION_JSON).content(outputAsJSON))
-			.andExpect(status().isCreated()).andExpect(content().json(resultAsJSON));
 				
-		}
-		
-		// testing response to delete
-		
-		@Test
-		public void deleteTest() throws Exception {
-		
-			mvc.perform(delete("/Notes/delete/1")
-				.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().isNoContent());
-		}
-		
-		// testing response if id does not exist when deleting entry
-		
-		@Test
-		public void deleteFailTest() throws Exception {
-		
-			mvc.perform(delete("/Notes/delete/2")
-				.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().isInternalServerError());
-		}
+@Test //marks a method as a test
+public void createTest() throws Exception {
+	User entry = new User("I need a holiday");
+	String entryAsJSON = mapper.writeValueAsString(entry);
+
+	User result = new User(2L, "I need a holiday");
+	String resultAsJSON = mapper.writeValueAsString(result);
+
+	mvc.perform(post("/Notes/create").contentType(MediaType.APPLICATION_JSON).content(entryAsJSON))
+			.andExpect(status().isCreated()).andExpect(content().json(resultAsJSON));
+
+}	
+
+@Test
+public void getAllTest() throws Exception {
+	User user = new User(1L, "Make a doctors appointment");
+	List<User> output = new ArrayList<>();
+	output.add(user);
+	String outputAsJSON = mapper.writeValueAsString(output);
+
+	mvc.perform(get("/Notes/getAll").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+			.andExpect(content().json(outputAsJSON));
 	
+}
+//
+@Test
+public void getByIdTest () throws Exception {
+	User outputID = new User(1L, "Make a doctors appointment");
+	String outputIDAsJSON = mapper.writeValueAsString(outputID);
+	
+	mvc.perform(get("/Notes/getById/1")
+	.contentType(MediaType.APPLICATION_JSON))
+	.andExpect(status().isOk())
+	.andExpect(content().json(outputIDAsJSON));
+			
+}
+
+@Test
+public void updateTest() throws Exception {
+	User outputUpdate = new User("I need a holiday");
+	String outputAsJSON = mapper.writeValueAsString(outputUpdate);
+	
+	User result = new User(1L, "I need a holiday");
+	String resultAsJSON = mapper.writeValueAsString(result);
+	
+	mvc.perform(put("/Notes/update/1").contentType(MediaType.APPLICATION_JSON).content(outputAsJSON))
+	.andExpect(status().isCreated()).andExpect(content().json(resultAsJSON));
+		
+}
+
+@Test
+public void deleteTest() throws Exception {
+	mvc.perform(delete("/Notes/delete/1")
+		.contentType(MediaType.APPLICATION_JSON))
+		.andExpect(status().isNoContent());
+}
+
+
+
 }
