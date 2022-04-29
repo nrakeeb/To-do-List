@@ -18,6 +18,18 @@ function getAllTodoList() {
         .catch((err) => console.error(err))
 }
 
+// CREATE TODO
+function createTodo() {
+
+    let data = document.getElementById("todo-text").value
+    console.log(data, "hello")
+    axios.post(ADDR + "/Notes/create", {
+        comments: data
+    }).then(function (res) {
+        makeTodo(res.data)
+    })
+}
+
 
 // TODO DOM ELEMENTS AND ATTRIBUTES
 function makeTodo(todoItem) {
