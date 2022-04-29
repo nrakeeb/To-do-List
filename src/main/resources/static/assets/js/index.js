@@ -38,6 +38,21 @@ function updateTodo(id) {
     }).catch(err => alert(err))
 }
 
+// UPDATE BUTTON CHANGES TO SAVE WHEN USER ENTERS SOMETHING NEW ON PREVIOUS TODO
+function toggleUpdate(id) {
+    let textArea = document.getElementById("input_" + id);
+    let button = document.getElementById("update_" + id);
+
+    if (textArea.readOnly === true) {
+        textArea.readOnly = false;
+        button.innerText = "Save";
+    } else {
+        textArea.readOnly = true
+        button.innerText = "Update";
+        updateTodo(id)
+    }
+}
+
 
 
 // TODO DOM ELEMENTS AND ATTRIBUTES
