@@ -53,6 +53,17 @@ function toggleUpdate(id) {
     }
 }
 
+// DELETE TODO
+function deleteToDoList(id) {
+    axios.delete(`${ADDR}/Notes/delete/${id}`)
+        .catch(err => alert(err))
+    //getAllTodoList()
+
+    let el = document.getElementById(id);
+    console.log(el)
+    el.style.display = "none";
+}
+
 
 
 // TODO DOM ELEMENTS AND ATTRIBUTES
